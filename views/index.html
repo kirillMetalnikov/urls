@@ -1,0 +1,56 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+
+<!-- You might want to try something fancier: -->
+<!-- html/nunjucks docs: https://mozilla.github.io/nunjucks/ -->
+<!-- pug: https://pugjs.org/ -->
+<!-- haml: http://haml.info/ -->
+<!-- hbs(handlebars): http://handlebarsjs.com/ -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+    <header>
+      <h1>
+        FreeCodeCamp API Basejump: URL Shortener Microservice
+      </h1>
+      <div>
+        User stories:
+        I can pass a URL as a parameter and I will receive a shortened URL in the JSON response.
+        When I visit that shortened URL, it will redirect me to my original link.
+      </div>
+    </header>
+
+    <main>
+      <div>
+        <h3>Example creation usage:</h3>
+        <a href = "https://urls-km.glitch.com/new/https://www.google.com">https://urls-km.glitch.com/new/https://www.google.com</a>
+        <a href = "https://urls-km.glitch.com/new/http://foo.com:80">https://urls-km.glitch.com/new/http://foo.com:80</a>
+      </div>
+      <div>
+        <h3>Example creation output:</h3>
+        <p>
+          { "original_url":"http://foo.com:80", "short_url":"https://urls-km.glitch.com/8170" }
+        </p>
+      </div>
+      <div>
+        <h3>Usage:</h3>
+        <p>
+          https://urls-km.glitch.com/8170
+        </p>
+        <p>
+            Will redirect to: <br/>
+            http://foo.com:80
+        </p>
+      </div>
+    </main>
+
+    <footer>
+    </footer>
+
+  </body>
+</html>
