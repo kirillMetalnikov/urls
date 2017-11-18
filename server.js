@@ -15,14 +15,14 @@ app.get("/", function (req, res) {
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/new/:id", function (req, res) {
   res.writeHead(200, { 'Content-Type': 'application/json' });
-    result = {new_id: id};
+    result = {new_id: req.params.id};
  // res.write(JSON.stringify(result));
   res.end(JSON.stringify(result));
 });
 
 app.get("/:id", function (req, res) {
   res.writeHead(200, { 'Content-Type': 'application/json' });
-  result = {id: id};
+  result = {id: req.params.id};
  // res.write(JSON.stringify(result));
   res.end(JSON.stringify(result));
 });
