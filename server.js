@@ -13,13 +13,22 @@ app.get("/", function (req, res) {
 });
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/new/:id", function (req, res) {
+app.get(/^\/new\/((https?:\/\/)?[a-z0-9~_\-\.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?(:\d+)*$)/, function (req, res) {
   res.writeHead(200, { 'Content-Type': 'application/json' });
-    result = {new_id: req.params.id};
+<<<<<<< HEAD
+    result = {new_id: req.params[0]};
  // res.write(JSON.stringify(result));
   res.end(JSON.stringify(result));
 });
-
+app.get(/new/, function (req, res) {
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+    result = {error: "wrong url"};
+=======
+    result = {new_id: req.params.id};
+>>>>>>> 11c7d6d907609aff47a1f1b088c2ac282d3474bc
+ // res.write(JSON.stringify(result));
+  res.end(JSON.stringify(result));
+});
 app.get("/:id", function (req, res) {
   res.writeHead(200, { 'Content-Type': 'application/json' });
   result = {id: req.params.id};
