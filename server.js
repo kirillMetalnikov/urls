@@ -15,25 +15,33 @@ app.get("/", function (req, res) {
 // http://expressjs.com/en/starter/basic-routing.html
 app.get(/^\/new\/((https?:\/\/)?[a-z0-9~_\-\.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?(:\d+)*$)/, function (req, res) {
   res.writeHead(200, { 'Content-Type': 'application/json' });
-<<<<<<< HEAD
-    result = {new_id: req.params[0]};
- // res.write(JSON.stringify(result));
+  result = {new_id: req.params[0]};
   res.end(JSON.stringify(result));
 });
 app.get(/new/, function (req, res) {
   res.writeHead(200, { 'Content-Type': 'application/json' });
-    result = {error: "wrong url"};
-=======
-    result = {new_id: req.params.id};
->>>>>>> 11c7d6d907609aff47a1f1b088c2ac282d3474bc
- // res.write(JSON.stringify(result));
+  result = {error: "wrong url"};
   res.end(JSON.stringify(result));
 });
 app.get("/:id", function (req, res) {
-  res.writeHead(200, { 'Content-Type': 'application/json' });
-  result = {id: req.params.id};
- // res.write(JSON.stringify(result));
-  res.end(JSON.stringify(result));
+
+  MongoClient.connect(url, function (err, db) {
+    if (err) {
+      console.log('Unable to connect to the mongoDB server. Error:', err);
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      result = {id: 'Unable to connect to the mongoDB server. Error:'};
+      res.end(JSON.stringify(result));
+    } else {
+      console.log('Connection established to', url);
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      result = {id: req.params.id, status: 'Connection established', url: url};
+      res.end(JSON.stringify(result));
+      db.close();
+    }
+  });
+
 });
 
 // listen for requests :)
