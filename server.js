@@ -18,6 +18,7 @@ app.get("/", function (req, res) {
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get(/^\/new\/((https?:\/\/)?[a-z0-9~_\-\.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?(:\d+)*$)/, function (req, res) {
+  
   MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log('Unable to connect to the mongoDB server. Error:', err);
@@ -56,12 +57,14 @@ app.get(/^\/new\/((https?:\/\/)?[a-z0-9~_\-\.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?(:\d+
       
     }
   });
+
 });
 app.get(/new/, function (req, res) {
   res.writeHead(200, { 'Content-Type': 'application/json' });
   result = {error: "wrong url"};
   res.end(JSON.stringify(result));
 });
+
 app.get(/^\/(\d+$)/, function (req, res) {
   var id = req.params[0]
   console.log(id)
@@ -74,13 +77,25 @@ app.get(/^\/(\d+$)/, function (req, res) {
       res.end(JSON.stringify(result));
     } else {
       console.log('Connection established to', url);
-
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      result = {id: id, status: 'Connection established'};
-      res.end(JSON.stringify(result));
-      db.close();
+      var col = db.collection("urls");
+      col.findOne({short: +id}, (err, doc) => {
+       if (err || doc == null) {
+         console.log("---")
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          result = {error: 'This url is not on the database'};
+          res.end(JSON.stringify(result));            
+       } else {
+        res.writeHead(302, { 'Location': doc.url});
+         console.log(doc)
+         res.end()
+    //    doc = {id: id, status: 'Connection established'};
+   //     res.redirect(doc.url);
+        db.close();
+       }             
+      })
     }
   });
+
 });
 
 app.get(/.*/, function (req, res) {
