@@ -18,7 +18,6 @@ app.get("/", function (req, res) {
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get(/^\/new\/((https?:\/\/)?[a-z0-9~_\-\.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?(:\d+)*$)/, function (req, res) {
-  
   MongoClient.connect(url, function (err, db) {
     if (err) {
       console.log('Unable to connect to the mongoDB server. Error:', err);
@@ -57,7 +56,6 @@ app.get(/^\/new\/((https?:\/\/)?[a-z0-9~_\-\.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?(:\d+
       
     }
   });
-
 });
 app.get(/new/, function (req, res) {
   res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -83,7 +81,6 @@ app.get(/^\/(\d+$)/, function (req, res) {
       db.close();
     }
   });
-
 });
 
 app.get(/.*/, function (req, res) {
