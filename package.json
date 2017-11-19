@@ -4,10 +4,11 @@
   "description": "freecodecamp.org",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js $MONGOLAB_URI"
   },
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33"
   },
   "engines": {
     "node": "8.x"
